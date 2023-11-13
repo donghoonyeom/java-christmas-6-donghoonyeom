@@ -40,7 +40,7 @@
   - 1,000원 할인
 - [x] 혜택 내역을 출력 하는 기능 `printDiscountAmount(int date, List<String> menus, int totalOrderAmount)`
   - 받은 혜택이 없다면 "없음" 출력
-- [ ] 총 혜택 금액을 계산 하는 기능 (할인 금액의 합계 + 증정 샴페인의 가격)
+- [x] 총 혜택 금액을 계산 하는 기능 (할인 금액의 합계 + 증정 샴페인의 가격) `calculateTotalDiscount(int date)`
   - 혜택 금액이 없을 시 "0원" 출력
 - [ ] 할인 후 예상 결제 금액 계산 하는 기능(할인 전 총주문 금액 - 할인 금액)
 - [ ] 총 혜택 금액에 따라 이벤트 배지를 출력 하는 기능

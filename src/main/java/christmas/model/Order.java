@@ -40,4 +40,10 @@ public class Order {
 
         return quantity * Menu.valueOf(menuName).getPrice();
     }
+
+    public int calculateTotalDiscount(int date) {
+        int dateDiscount = TotalDiscountCalculator.calculateDateDiscount(date, menus);
+        int starDiscount = TotalDiscountCalculator.calculateStarDiscount(date);
+        return dateDiscount + starDiscount;
+    }
 }
