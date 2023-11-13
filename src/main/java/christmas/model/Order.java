@@ -46,4 +46,9 @@ public class Order {
         int starDiscount = TotalDiscountCalculator.calculateStarDiscount(date);
         return dateDiscount + starDiscount;
     }
+
+    public String calculateBadge(int date) {
+        int totalBenefits = calculateTotalOrderAmount() - calculateTotalDiscount(date);
+        return BadgeCalculator.calculateBadge(totalBenefits);
+    }
 }
