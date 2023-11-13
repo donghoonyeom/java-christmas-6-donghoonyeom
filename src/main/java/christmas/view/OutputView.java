@@ -1,10 +1,13 @@
 package christmas.view;
 
+import christmas.model.DateDiscount;
 import christmas.model.Menu;
+import christmas.model.TotalDiscountCalculator;
 import java.util.List;
 
 public class OutputView {
 
+    private static final String GIFT_MENU = "샴페인 1개";
 
     public static void printMessage(String message) {
         System.out.println(message);
@@ -34,6 +37,36 @@ public class OutputView {
         printMessage(String.format("<할인 전 총주문 금액>%n%s원", formatAmount(totalOrderAmount)));
         printEmptyLine();
     }
+
+    public static void printDiscountAmount(int date, List<String> menus, int totalOrderAmount) {
+        printMessage("<혜택 내역>");
+
+        int christmasDiscount = DateDiscount.dayDiscount(date);
+        int weekdayDiscount = DateDiscount.weekDayDiscount(date, menus);
+        int weekendDiscount = DateDiscount.weekendDayDiscount(date, menus);
+        int starDiscount = TotalDiscountCalculator.calculateStarDiscount(date);
+        int giftMenuDiscount = TotalDiscountCalculator.printGiftMenu(totalOrderAmount);
+
+        printIfNonZero("크리스마스 디데이 할인", christmasDiscount);
+        printIfNonZero("평일 할인", weekdayDiscount);
+        printIfNonZero("주말 할인", weekendDiscount);
+        printIfNonZero("특별 할인", starDiscount);
+        printIfNonZero("증정 이벤트", giftMenuDiscount);
+
+        if (christmasDiscount == 0 && weekdayDiscount == 0 && weekendDiscount == 0 && starDiscount == 0
+                && giftMenuDiscount == 0) {
+            printMessage("없음");
+        }
+
+        printEmptyLine();
+    }
+
+    private static void printIfNonZero(String label, int amount) {
+        if (amount != 0) {
+            printMessage(String.format("%s: -%s원", label, formatAmount(amount)));
+        }
+    }
+
 
     private static String formatAmount(int amount) {
         return String.format("%,d", amount);

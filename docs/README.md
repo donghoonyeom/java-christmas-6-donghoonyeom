@@ -38,7 +38,7 @@
   - 메인 메뉴 1개당 2,023원 할인
 - [x] 특별 할인이 가능한 날 인지 확인 하는 기능 (3,10,17,24,25,31) `starDayDiscount(int date)`
   - 1,000원 할인
-- [ ] 혜택 내역을 출력 하는 기능
+- [x] 혜택 내역을 출력 하는 기능 `printDiscountAmount(int date, List<String> menus, int totalOrderAmount)`
   - 받은 혜택이 없다면 "없음" 출력
 - [ ] 총 혜택 금액을 계산 하는 기능 (할인 금액의 합계 + 증정 샴페인의 가격)
   - 혜택 금액이 없을 시 "0원" 출력
