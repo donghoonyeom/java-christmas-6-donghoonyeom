@@ -30,7 +30,7 @@
 - [x] 할인 전 총 주문 금액 출력 하는 기능 `printTotalOrderAmount()`
 - [x] 할인 전 총 주문 금액이 120,000원 이상시 샴페인을 증정하는 기능 `calculateGiftMenu(int totalOrderAmount, int totalDiscount)`
   - 120,000원 미만시 "없음" 출력
-- [ ] 크리스 마스 디데이 할인을 계산 하는 기능
+- [x] 크리스 마스 디데이 할인을 계산 하는 기능 `dayDiscount(int date)`
   - 1일 ~ 25일 크리스마스와 다가올수록 1,000원 시작 100윈씩 증가
 - [ ] 평일 할인을 계산 하는 기능 (주말 제외)
   - 디저트 메뉴 1개당 2,023원 할인
