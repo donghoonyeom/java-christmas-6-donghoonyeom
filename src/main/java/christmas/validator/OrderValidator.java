@@ -18,6 +18,7 @@ public class OrderValidator {
     }
 
     private static void validateOrder(String order) {
+        validateOrderCommaFormat(order);
         validateOrderFormat(order);
         validateNoEnglishCharacters(order);
         validateNoBeverageOnlyOrder(order);
@@ -40,6 +41,12 @@ public class OrderValidator {
 
     private static void validateOrderFormat(String order) {
         if (!allMatch(order, OrderValidator::isValidMenuEntryFormat)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
+        }
+    }
+
+    private static void validateOrderCommaFormat(String order) {
+        if (order.startsWith(",") || order.endsWith(",")) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
