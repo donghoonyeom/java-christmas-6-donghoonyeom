@@ -1,17 +1,18 @@
 package christmas.model;
 
-import java.util.List;
+import java.util.Set;
 
 public class TotalDiscountCalculator {
 
-    public static int calculateDateDiscount(int date, List<String> menus) {
-        int dateDiscount = DateDiscount.dayDiscount(date);
-        int weekDayDiscount = DateDiscount.weekDayDiscount(date, menus);
-        int weekendDayDiscount = DateDiscount.weekendDayDiscount(date, menus);
+    private static final int GIFT_MENU_ORDER_AMOUNT_THRESHOLD = 120000;
+    private static final int DEFAULT_DISCOUNT = 0;
 
+    public static int calculateDateDiscount(int date, Set<OrderItem> menus) {
+        int dateDiscount = DateDiscount.ddayDiscount(date);
+        int weekDayDiscount = WeekendWeekdayDiscount.weekDayDiscount(date, menus);
+        int weekendDayDiscount = WeekendWeekdayDiscount.weekendDayDiscount(date, menus);
         return dateDiscount + weekDayDiscount + weekendDayDiscount;
     }
-
 
     public static int calculateStarDiscount(int date) {
         return StarDiscount.starDayDiscount(date);
@@ -19,20 +20,20 @@ public class TotalDiscountCalculator {
 
     public static int calculateGiftMenu(int totalOrderAmount, int totalDiscount) {
         int totalBenefits = totalDiscount;
-        if (totalOrderAmount >= 120000) {
+        if (totalOrderAmount >= GIFT_MENU_ORDER_AMOUNT_THRESHOLD) {
             totalBenefits += getGiftMenuPrice();
         }
         return totalBenefits;
     }
 
-    public static int printGiftMenu(int totalOrderAmount) {
-        if (totalOrderAmount >= 120000) {
-            return getGiftMenuPrice();
+    public static int printGiftMenuPrice(int totalOrderAmount) {
+        if (totalOrderAmount < GIFT_MENU_ORDER_AMOUNT_THRESHOLD) {
+            return DEFAULT_DISCOUNT;
         }
-        return 0;
+        return getGiftMenuPrice();
     }
 
     private static int getGiftMenuPrice() {
-        return Menu.샴페인.getPrice();
+        return Menu.getChampagnePrice();
     }
 }
