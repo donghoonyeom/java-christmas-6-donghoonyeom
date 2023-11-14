@@ -20,7 +20,7 @@ public class EventProcessor {
         printBenefits(totalBenefits);
         printPayment(totalPayment);
 
-        String badge = order.calculateBadge(date);
+        String badge = order.calculateBadge(totalOrderAmount, totalDiscount);
         OutputView.printBadge(badge);
     }
 
