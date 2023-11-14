@@ -16,6 +16,11 @@ public class OutputView {
         System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%n", date);
     }
 
+    public static void printOrderPreview(int date) {
+        printPreviewPhrase(date);
+        printEmptyLine();
+    }
+
     public static void printTotalOrderAmount(int totalOrderAmount) {
         printMessage(String.format("<할인 전 총주문 금액>%n%s원", formatAmount(totalOrderAmount)));
         printEmptyLine();
