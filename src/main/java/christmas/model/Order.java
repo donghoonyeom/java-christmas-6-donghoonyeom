@@ -1,6 +1,5 @@
 package christmas.model;
 
-import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,10 +15,9 @@ public class Order {
         this.menus = menus;
     }
 
-    public static Order createOrder(int date) {
-        String orderInput = InputView.getOrder();
+    public static Order createOrder(int date, String orderInput) {
         Set<OrderItem> menus = createOrderItems(orderInput);
-        printOrderPreview(date);
+        OutputView.printOrderPreview(date);
         return new Order(menus);
     }
 
@@ -33,11 +31,6 @@ public class Order {
             menus.add(new OrderItem(menuName, quantity));
         }
         return menus;
-    }
-
-    private static void printOrderPreview(int date) {
-        OutputView.printPreviewPhrase(date);
-        OutputView.printEmptyLine();
     }
 
     private static String[] getMenuInfo(String menu) {
@@ -62,8 +55,8 @@ public class Order {
         return dateDiscount + starDiscount;
     }
 
-    public String calculateBadge(int date) {
-        int totalBenefits = calculateTotalOrderAmount() - calculateTotalDiscount(date);
+    public String calculateBadge(int totalOrderAmount, int calculateTotalDiscount) {
+        int totalBenefits = TotalDiscountCalculator.calculateGiftMenu(totalOrderAmount, calculateTotalDiscount);
         return Badge.calculateBadge(totalBenefits);
     }
 }
