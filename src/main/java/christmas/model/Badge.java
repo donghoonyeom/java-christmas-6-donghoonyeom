@@ -1,9 +1,9 @@
 package christmas.model;
 
 public enum Badge {
-    STAR(5000, "스타"),
-    TREE(10000, "트리"),
     SANTA(20000, "산타"),
+    TREE(10000, "트리"),
+    STAR(5000, "별"),
     NONE(0, "없음");
 
     private final int threshold;
@@ -20,12 +20,12 @@ public enum Badge {
     }
 
     private static Badge findApplicableBadge(int totalBenefits) {
-        for (Badge badge : Badge.values()) {
+        for (Badge badge : values()) {
             if (totalBenefits >= badge.threshold) {
                 return badge;
             }
         }
-        return Badge.NONE;
+        return NONE;
     }
 
     public String getName() {
