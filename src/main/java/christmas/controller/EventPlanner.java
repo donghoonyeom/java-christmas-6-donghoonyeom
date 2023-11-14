@@ -1,25 +1,32 @@
 package christmas.controller;
 
 import christmas.model.Order;
-import christmas.model.TotalDiscountCalculator;
+import christmas.view.OrderOutputPrinter;
 import christmas.view.OutputView;
 
 public class EventPlanner {
+    private static final int MIN_TOTAL_ORDER_AMOUNT_FOR_EVENTS = 10000;
+
     public static void planEvent(Order order, int date) {
         int totalOrderAmount = order.calculateTotalOrderAmount();
-        int totalDiscount = order.calculateTotalDiscount(date);
-        int totalBenefits = TotalDiscountCalculator.calculateGiftMenu(totalOrderAmount, totalDiscount);
-        int totalPayment = totalOrderAmount - totalDiscount;
-        String giftMenu = OutputView.calculateGiftMenu(totalOrderAmount);
 
-        OutputView.printMenu(order.getMenus());
+        printOrderDetails(order, totalOrderAmount);
+
+        processEventBasedOnTotalAmount(order, date, totalOrderAmount);
+    }
+
+    private static void printOrderDetails(Order order, int totalOrderAmount) {
+        OrderOutputPrinter.printMenu(order.getMenus());
         OutputView.printTotalOrderAmount(totalOrderAmount);
-        OutputView.printGiftMenu(giftMenu);
-        OutputView.printDiscountAmount(date, order.getMenus(), totalOrderAmount);
-        OutputView.printBenefits(totalBenefits);
-        OutputView.printPayment(totalPayment);
+    }
 
-        String badge = order.calculateBadge(date);
-        OutputView.printBadge(badge);
+    private static void processEventBasedOnTotalAmount(Order order, int date, int totalOrderAmount) {
+        if (totalOrderAmount >= MIN_TOTAL_ORDER_AMOUNT_FOR_EVENTS) {
+            EventProcessor.processEvent(order, date, totalOrderAmount);
+        }
+
+        if (totalOrderAmount < MIN_TOTAL_ORDER_AMOUNT_FOR_EVENTS) {
+            NoEventProcessor.processNoEvent(order, date, totalOrderAmount);
+        }
     }
 }
