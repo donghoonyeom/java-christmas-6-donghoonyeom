@@ -2,43 +2,58 @@ package christmas.model;
 
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Order {
-    private final List<String> menus;
+    private static final int MENU_NAME_INDEX = 0;
+    private static final int QUANTITY_INDEX = 1;
 
-    public Order(List<String> menus) {
+    private final Set<OrderItem> menus;
+
+
+    private Order(Set<OrderItem> menus) {
         this.menus = menus;
     }
 
     public static Order createOrder(int date) {
         String orderInput = InputView.getOrder();
-        List<String> menus = Arrays.asList(orderInput.split(","));
-        OutputView.printPreviewPhrase(date);
-        OutputView.printEmptyLine();
+        Set<OrderItem> menus = createOrderItems(orderInput);
+        printOrderPreview(date);
         return new Order(menus);
     }
 
-    public List<String> getMenus() {
+    private static Set<OrderItem> createOrderItems(String orderInput) {
+        Set<OrderItem> menus = new HashSet<>();
+        String[] orderItems = orderInput.split(",");
+        for (String orderItem : orderItems) {
+            String[] menuInfo = getMenuInfo(orderItem.trim());
+            String menuName = menuInfo[MENU_NAME_INDEX];
+            int quantity = Integer.parseInt(menuInfo[QUANTITY_INDEX]);
+            menus.add(new OrderItem(menuName, quantity));
+        }
+        return menus;
+    }
+
+    private static void printOrderPreview(int date) {
+        OutputView.printPreviewPhrase(date);
+        OutputView.printEmptyLine();
+    }
+
+    private static String[] getMenuInfo(String menu) {
+        return menu.split("-");
+    }
+
+    public Set<OrderItem> getMenus() {
         return menus;
     }
 
     public int calculateTotalOrderAmount() {
         int totalOrderAmount = 0;
-        for (String menu : menus) {
-            totalOrderAmount += calculateMenuAmount(menu.trim());
+        for (OrderItem orderItem : menus) {
+            totalOrderAmount += orderItem.calculateMenuAmount();
         }
         return totalOrderAmount;
-    }
-
-    private int calculateMenuAmount(String menu) {
-        String[] menuInfo = menu.split("-");
-
-        String menuName = menuInfo[0];
-        int quantity = Integer.parseInt(menuInfo[1]);
-
-        return quantity * Menu.valueOf(menuName).getPrice();
     }
 
     public int calculateTotalDiscount(int date) {
@@ -49,6 +64,6 @@ public class Order {
 
     public String calculateBadge(int date) {
         int totalBenefits = calculateTotalOrderAmount() - calculateTotalDiscount(date);
-        return BadgeCalculator.calculateBadge(totalBenefits);
+        return Badge.calculateBadge(totalBenefits);
     }
 }
