@@ -30,6 +30,10 @@ public enum Menu {
         return Menu.valueOf(menuName).getPrice();
     }
 
+    public static boolean containsMenu(String menuName) {
+        return Arrays.stream(values()).anyMatch(menu -> menu.name().equals(menuName));
+    }
+
     public int getPrice() {
         return price;
     }
@@ -45,4 +49,5 @@ public enum Menu {
     public boolean containsDessertMenu(String menuName) {
         return Arrays.asList(초코케이크.name(), 아이스크림.name()).contains(menuName);
     }
+
 }
