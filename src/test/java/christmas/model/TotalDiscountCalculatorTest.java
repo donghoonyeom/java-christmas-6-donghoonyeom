@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-@DisplayName("TotalDiscountCalculator 테스트")
+@DisplayName("통합 할인 계산 테스트")
 class TotalDiscountCalculatorTest {
 
     @Test

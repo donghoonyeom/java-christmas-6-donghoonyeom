@@ -35,7 +35,7 @@ class WeekendWeekdayDiscountTest {
     void weekDayDiscount() {
         // Given
         int date = 5; // 평일
-        Set<OrderItem> menus = createMenus(); // 적절한 주문 항목 생성
+        Set<OrderItem> menus = createMenus();
 
         // When
         int result = WeekendWeekdayDiscount.weekDayDiscount(date, menus);
