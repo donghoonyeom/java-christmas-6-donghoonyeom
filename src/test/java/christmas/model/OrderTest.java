@@ -1,6 +1,6 @@
 package christmas.model;
 
-
+import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,14 +23,7 @@ class OrderTest {
         Order order = Order.createOrder(date, orderInput);
 
         // Then
-        Set<OrderItem> menus = order.getMenus();
-        assertThat(menus).hasSize(3);
-        assertThat(menus).extracting("menuName", "quantity")
-                .containsExactlyInAnyOrder(
-                        tuple("해산물파스타", 2),
-                        tuple("레드와인", 1),
-                        tuple("초코케이크", 1)
-                );
+        assertOrderDetails(order, 3, tuple("해산물파스타", 2), tuple("레드와인", 1), tuple("초코케이크", 1));
     }
 
     @Test
@@ -63,4 +56,9 @@ class OrderTest {
         assertThat(totalDiscount).isEqualTo(4123);
     }
 
+    private void assertOrderDetails(Order order, int expectedSize, Tuple... expectedTuples) {
+        Set<OrderItem> menus = order.getMenus();
+        assertThat(menus).hasSize(expectedSize);
+        assertThat(menus).extracting("menuName", "quantity").containsExactlyInAnyOrder(expectedTuples);
+    }
 }
