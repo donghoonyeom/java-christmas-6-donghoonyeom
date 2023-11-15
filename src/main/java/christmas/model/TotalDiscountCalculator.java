@@ -33,6 +33,15 @@ public class TotalDiscountCalculator {
         return getGiftMenuPrice();
     }
 
+    public static String calculateBadge(int totalOrderAmount, int calculateTotalDiscount) {
+        int totalBenefits = calculateGiftMenu(totalOrderAmount, calculateTotalDiscount);
+        return Badge.calculateBadge(totalBenefits);
+    }
+
+    public static int calculatePayment(int totalOrderAmount, int totalDiscount) {
+        return totalOrderAmount - totalDiscount;
+    }
+
     private static int getGiftMenuPrice() {
         return Menu.getChampagnePrice();
     }
