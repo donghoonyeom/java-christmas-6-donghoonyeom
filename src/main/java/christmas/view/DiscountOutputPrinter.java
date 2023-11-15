@@ -48,7 +48,7 @@ public class DiscountOutputPrinter {
         }
 
         if (totalBenefits == 0) {
-            OutputView.printMessage("<총혜택 금액>\n0원");
+            OutputView.printMessage(String.format("<총혜택 금액>%n%s원", OutputView.formatAmount(totalBenefits)));
             OutputView.printEmptyLine();
         }
     }
