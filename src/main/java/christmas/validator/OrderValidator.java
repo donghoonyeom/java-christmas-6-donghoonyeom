@@ -19,6 +19,7 @@ public class OrderValidator {
 
     private static void validateOrder(String order) {
         validateOrderCommaFormat(order);
+        validateInvalidMenuInOrder(order);
         validateOrderFormat(order);
         validateNoEnglishCharacters(order);
         validateNoBeverageOnlyOrder(order);
@@ -29,6 +30,19 @@ public class OrderValidator {
         if (containsBeverageOnly(order)) {
             throw new IllegalArgumentException(ErrorMessage.BEVERAGE_ONLY_ORDER.getMessage());
         }
+    }
+
+    private static void validateInvalidMenuInOrder(String order) {
+        if (isInvalidMenuInOrder(order)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
+        }
+    }
+
+    private static boolean isInvalidMenuInOrder(String order) {
+        return allMatch(order, menuInfo -> {
+            String menuName = menuInfo.split("-")[0].trim();
+            return !Menu.containsMenu(menuName);
+        });
     }
 
     private static boolean containsBeverageOnly(String order) {
