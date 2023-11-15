@@ -12,7 +12,7 @@ public class EventProcessor {
     public static void processEvent(Order order, int date, int totalOrderAmount) {
         int totalDiscount = calculateTotalDiscount(order, date);
         int totalBenefits = TotalDiscountCalculator.calculateGiftMenu(totalOrderAmount, totalDiscount);
-        int totalPayment = totalOrderAmount - totalDiscount;
+        int totalPayment = TotalDiscountCalculator.calculatePayment(totalOrderAmount, totalDiscount);
         String giftMenu = OrderOutputPrinter.printGiftMenuMessage(totalOrderAmount);
 
         OutputView.printGiftMenuPhrase(giftMenu);
@@ -20,7 +20,7 @@ public class EventProcessor {
         printBenefits(totalBenefits);
         printPayment(totalPayment);
 
-        String badge = order.calculateBadge(totalOrderAmount, totalDiscount);
+        String badge = TotalDiscountCalculator.calculateBadge(totalOrderAmount, totalDiscount);
         OutputView.printBadge(badge);
     }
 
