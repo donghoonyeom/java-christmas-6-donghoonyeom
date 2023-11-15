@@ -33,9 +33,7 @@ class NoEventProcessorTest {
         NoEventProcessor.processNoEvent(order, 15, 1000);
 
         // Then
-        // Get the printed output
         String printedOutput = outputStream.toString();
-
 
         assertThat(printedOutput).contains("없음");
         assertThat(printedOutput).contains("0원");
@@ -48,9 +46,7 @@ class NoEventProcessorTest {
     }
 
     private Set<OrderItem> someSetOfOrderItems() {
-        // 적절한 OrderItem들을 생성하여 반환
         Set<OrderItem> orderItems = new HashSet<>();
-        // 예를 들어, 필요한 OrderItem들을 생성하여 orderItems에 추가
         return orderItems;
     }
 }

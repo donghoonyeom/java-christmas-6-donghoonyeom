@@ -22,8 +22,6 @@ class EventProcessorTest {
     void processEvent() {
         // Given
         Order order = mock(Order.class);
-        when(order.calculateBadge(10000, 5000)).thenReturn("별");
-
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
