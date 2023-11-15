@@ -21,6 +21,6 @@ class StarDiscountTest {
 
         // Then
         assertThat(discountResult).isEqualTo(1000);
-        assertThat(nonDiscountResult).isEqualTo(0);
+        assertThat(nonDiscountResult).isZero();
     }
 }
