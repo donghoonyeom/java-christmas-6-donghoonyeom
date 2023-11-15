@@ -76,7 +76,7 @@
 #### `InputView.java` : 사용자 입력을 받는 클래스
 #### `OrderOutputPrinter.java` : 주문 내역을 출력하는 클래스
 #### `OutputView.java` : 출력 관련 기능을 제공하는 클래스
-## `Application.java` : 프로그램의 시작점이 되는 클래스
+#### `Application.java` : 프로그램의 시작점이 되는 클래스
 
 
 ## 프로그램 사용법
